@@ -15,7 +15,9 @@ jobs:
 
       - uses: actions/cache@v2
         with:
-          path: ~/.npm
+          path: |
+            ~/.npm
+            /home/runner/.cache/ms-playwright/
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
