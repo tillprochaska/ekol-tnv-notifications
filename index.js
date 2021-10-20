@@ -1,23 +1,18 @@
 import { chromium } from 'playwright-chromium';
 import fetch from 'node-fetch';
 import dotenv from 'dotenv';
+import fs from 'fs';
+import YAML from 'yaml';
 
 dotenv.config();
 
-const url = 'https://egov.potsdam.de/tnv/';
-const office = 'Bürgerservicecenter';
+const configFile = fs.readFileSync('./config.yml', 'utf8');
+const config = YAML.parse(configFile);
 
-const services = {
-  'Beantragung eines Personalausweises': 1,
-  'Beantragung eines Reisepasses': 1,
-};
-
-// const url = 'https://ekol.memmingen.de/tnv/bgr';
-// const office = 'Amt 35 Einwohnermelde- und Passamt';
-
-// const services = {
-//   'Beantragung von Personalausweis und/oder Reisepass': 1,
-// };
+if (!config.url || !config.office || !config.services) {
+  console.log('Please make sure to provide valid config file.');
+  process.exit(1);
+}
 
 const locale = 'de-DE';
 const timeZone = 'Europe/Berlin';
@@ -25,7 +20,7 @@ const timeZone = 'Europe/Berlin';
 (async () => {
   const browser = await chromium.launch();
   const page = await browser.newPage();
-  await page.goto(url);
+  await page.goto(config.url);
 
   const heading = await page.$('h3:has-text("neuen Termin vereinbaren")');
 
@@ -38,7 +33,7 @@ const timeZone = 'Europe/Berlin';
 
   // For some municipalities, the list of offices is initially collapsed
   const expandButton = await page.$(
-    `.searchTreeItemChild:has-text('${office}') button[title="öffnen"]`
+    `.searchTreeItemChild:has-text('${config.office}') button[title="öffnen"]`
   );
 
   if (expandButton) {
@@ -47,11 +42,11 @@ const timeZone = 'Europe/Berlin';
 
   // Select office
   await page.click(
-    `.searchTreeItemChild:has-text('${office}') button:has-text("Termin vereinbaren")`
+    `.searchTreeItemChild:has-text('${config.office}') button:has-text("Termin vereinbaren")`
   );
 
   // Select services
-  for (const [label, value] of Object.entries(services)) {
+  for (const [label, value] of Object.entries(config.services)) {
     await page.selectOption(`text=${label}`, value.toString());
   }
 

@@ -1,0 +1,13 @@
+# The base URL of the eKOL-TNV service
+# (excluding any session identifiers etc.)
+url: https://egov.potsdam.de/tnv/
+
+# The full name of the respective office, e.g.
+# Citizen’s Service or Driver’s License Office
+office: Bürgerservicecenter
+
+# The full name and amount of services for which
+# you would like to make an appointment
+services:
+  'Beantragung eines Personalausweises': 1
+  'Beantragung eines Reisepasses': 1
