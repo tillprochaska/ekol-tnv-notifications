@@ -65,6 +65,7 @@ const timeZone = 'Europe/Berlin';
   const available = await page.$$('.eKOLCalendarButtonDayFreeX');
 
   if (available.length <= 0) {
+    console.log('Exiting as no appointments are available.');
     return await browser.close();
   }
 
@@ -102,6 +103,7 @@ const timeZone = 'Europe/Berlin';
     `Es gibt aktuell ${slotsCount} freie Termine ` +
     `zwischen ${formatDate(firstDate)} und ${formatDate(lastDate)}.`;
 
+  console.log('Sending notification.');
   const res = await fetch('https://api.pushover.net/1/messages.json', {
     method: 'POST',
     headers: {

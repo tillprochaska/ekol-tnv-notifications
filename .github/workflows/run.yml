@@ -1,0 +1,29 @@
+name: Check available appointments
+on:
+  schedule:
+    # Run Mon-Fri, every 30 mins from 7am to 6pm
+    - cron: '0,30 7-18 * * 1-5'
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main repository
+        uses: actions/checkout@v2
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run
+        run: node index.js
+        env:
+          PUSHOVER_API_TOKEN: "${{ secrets.PUSHOVER_API_TOKEN }}"
+          PUSHOVER_USER_KEY: "${{ secrets.PUSHOVER_USER_KEY }}"
