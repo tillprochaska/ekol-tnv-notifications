@@ -2,8 +2,8 @@ name: Check available appointments
 on:
   workflow_dispatch: {}
   schedule:
-    # Run Mon-Fri, every 30 mins from 7am to 6pm
-    - cron: '0,30 7-18 * * 1-5'
+    # Run Mon-Fri, every 15 mins from 7am to 3pm CEST
+    - cron: '*/15 5-13 * * 1-5'
 
 jobs:
   run:
