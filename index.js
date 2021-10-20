@@ -1,4 +1,4 @@
-import { chromium } from 'playwright';
+import { chromium } from 'playwright-chromium';
 import fetch from 'node-fetch';
 import dotenv from 'dotenv';
 
