@@ -20,7 +20,7 @@
   "dependencies": {
     "dotenv": "^10.0.0",
     "node-fetch": "^3.0.0",
-    "playwright-chromium": "^1.15.2",
+    "playwright-chromium": "^1.16.0",
     "yaml": "^1.10.2"
   }
 }
