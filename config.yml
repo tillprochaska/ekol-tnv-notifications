@@ -9,5 +9,4 @@ office: Bürgerservicecenter
 # The full name and amount of services for which
 # you would like to make an appointment
 services:
-  'Beantragung eines Personalausweises': 1
   'Beantragung eines Reisepasses': 1
