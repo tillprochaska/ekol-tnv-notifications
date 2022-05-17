@@ -22,7 +22,7 @@ const timeZone = 'Europe/Berlin';
   const page = await browser.newPage();
   await page.goto(config.url);
 
-  const heading = await page.$('h3:has-text("neuen Termin vereinbaren")');
+  const heading = await page.$('h3:has-text("Auswahl")');
 
   if (!heading) {
     // Some municipalities show a splash notice at the beginning.
