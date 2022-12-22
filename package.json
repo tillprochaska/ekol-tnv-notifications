@@ -21,6 +21,6 @@
     "dotenv": "^10.0.0",
     "node-fetch": "^3.0.0",
     "playwright-chromium": "^1.16.0",
-    "yaml": "^1.10.2"
+    "yaml": "^2.2.0"
   }
 }
