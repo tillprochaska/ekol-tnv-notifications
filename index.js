@@ -22,7 +22,7 @@ const timeZone = 'Europe/Berlin';
   const page = await browser.newPage();
   await page.goto(config.url);
 
-  const heading = await page.$('h3:has-text("Auswahl")');
+  const heading = await page.$('h1:has-text("Terminvereinbarung")');
 
   if (!heading) {
     // Some municipalities show a splash notice at the beginning.
@@ -42,7 +42,7 @@ const timeZone = 'Europe/Berlin';
 
   // Select office
   await page.click(
-    `.searchTreeItemChild:has-text('${config.office}') button:has-text("Termin vereinbaren")`
+    `.treeItem_searchChild:has-text('${config.office}') button:has-text("Termin vereinbaren")`
   );
 
   // Select services
@@ -56,8 +56,8 @@ const timeZone = 'Europe/Berlin';
   await page.click('button:has-text("Weiter")');
 
   // Find available dates
-  await page.waitForSelector('.ekolCalendarContainer');
-  const available = await page.$$('.eKOLCalendarButtonDayFreeX');
+  await page.waitForSelector('.ekolCalendar_Container');
+  const available = await page.$$('.ekolCalendar_ButtonDayFreeX');
 
   if (available.length <= 0) {
     console.log('Exiting as no appointments are available.');
@@ -72,7 +72,7 @@ const timeZone = 'Europe/Berlin';
         const timestamp = parts[parts.length - 1];
 
         const slotsContainer = await element.$(
-          '.ekolCalendarFreeTimeContainer'
+          '.ekolCalendar_FreeTimeContainer'
         );
         const slotsCount = parseInt(await slotsContainer.textContent());
 
